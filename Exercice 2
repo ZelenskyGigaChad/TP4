@@ -1,0 +1,52 @@
+import arcade
+import random
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+couleurs = [arcade.color.BLUE, arcade.color.FANDANGO_PINK,
+arcade.color.FRENCH_ROSE, arcade.color.GOLDEN_POPPY]
+
+class Cercle():
+    def __init__(self, r,x,y,c):
+        self.rayon = r
+        self.centre_x = x
+        self.centre_y = y
+        self.color = c
+
+    def draw(self):
+        arcade.draw_circle_filled(self.centre_x, self.centre_y, self.rayon, self.color)
+
+class MyGame(arcade.Window):
+    def __init__(self):
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Hurrayyyy")
+        self.liste_de_cercles_de_fou = []
+
+    def setup(self):
+        for i in range(20):
+            rayon = random.randint(10, 50)
+            center_x = random.randint(rayon, SCREEN_WIDTH - rayon)
+            center_y = random.randint(rayon, SCREEN_HEIGHT - rayon)
+            color = random.choice(couleurs)
+            cercle = Cercle(rayon, center_x, center_y, color)
+            self.liste_de_cercles_de_fou.append(cercle)
+
+    def on_draw(self):
+        arcade.start_render()
+
+        for cercle in self.liste_de_cercles_de_fou:
+            cercle.draw()
+
+    def on_mouse_press(self, x, y, button, modifiers):
+        for cercle in self.liste_de_cercles_de_fou:
+            if button == arcade.MOUSE_BUTTON_LEFT and x > cercle.centre_x-cercle.rayon and x < cercle.centre_x+cercle.rayon and y > cercle.centre_y-cercle.rayon and y < cercle.centre_y+cercle.rayon:
+                self.liste_de_cercles_de_fou.remove(cercle)
+            if button == arcade.MOUSE_BUTTON_RIGHT and x > cercle.centre_x-cercle.rayon and x < cercle.centre_x+cercle.rayon and y > cercle.centre_y-cercle.rayon and y < cercle.centre_y+cercle.rayon:
+                cercle.color = random.choice(couleurs)
+
+def main():
+    my_game = MyGame()
+    my_game.setup()
+    arcade.run()
+
+
+main()
