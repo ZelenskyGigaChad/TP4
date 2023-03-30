@@ -1,11 +1,11 @@
 import arcade
 import random
 
+
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 COLORS = [arcade.color.BLUE, arcade.color.FANDANGO_PINK,
           arcade.color.FRENCH_ROSE, arcade.color.GOLDEN_POPPY]
-
 
 class Balle:
     def __init__(self, x, y, change_x, change_y, rayon, color):
@@ -108,7 +108,7 @@ class MyGame(arcade.Window):
             width = random.uniform(20, 50)
             height = random.uniform(20, 50)
             color = random.choice(COLORS)
-            rectangle = Rectangle(x, y, random.uniform(-5, 5), random.uniform(-5, 5), width, height, color, 0)
+            rectangle = Rectangle(x, y, random.uniform(-5, 5), random.uniform(-5, 5), width, height, color, random.uniform(1,180))
             if rectangle.change_y == 0:
                 rectangle.change_y = 1
             if rectangle.change_x == 0:
