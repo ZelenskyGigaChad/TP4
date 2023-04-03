@@ -25,7 +25,6 @@ class Balle:
 #Si les cercles touchent les bords de l'écran, ils rebondissent inversement
         if self.x < self.rayon:
             self.change_x *= -1
-
         elif self.x > SCREEN_WIDTH - self.rayon:
             self.change_x *= -1
         if self.y < self.rayon:
@@ -49,22 +48,16 @@ class Rectangle:
         self.angle = angle
 #On définit la méthode update qui permet de faire bouger les rectangles
     def update(self):
-
         self.x += self.change_x
         self.y += self.change_y
-
 #Si les rectangles touchent les bords de l'écran, ils rebondissent inversement
         if self.x < 0:
-            self.x = 0
             self.change_x *= -1
         elif self.x > SCREEN_WIDTH - self.width:
-            self.x = SCREEN_WIDTH - self.width
             self.change_x *= -1
         if self.y < 0:
-            self.y = 0
             self.change_y *= -1
         elif self.y > SCREEN_HEIGHT - self.height:
-            self.y = SCREEN_HEIGHT - self.height
             self.change_y *= -1
 #On définit la méthode draw qui permet de dessiner les rectangles
     def draw(self):
@@ -73,7 +66,7 @@ class Rectangle:
 #On définit la classe MyGame qui hérite de la classe Window
 class MyGame(arcade.Window):
     def __init__(self):
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Exercice 1")
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Never gonna give you up, never gonna let you down, never gonna run around and desert you, never gonna make you cry, never gonna say goodbye, never gonna tell a lie and hurt you")
 #On définit les listes qui contiendront les cercles et les rectangles
         self.liste_balles = []
         self.liste_rectangles = []
@@ -96,6 +89,7 @@ class MyGame(arcade.Window):
             rectangle.draw()
 
 #On définit la méthode on_mouse_press qui permet de créer des cercles et des rectangles avec des parametres aléatoires
+#We create a particle effect when the mouse is clicked
     def on_mouse_press(self, x, y, button, modifiers):
         if button == arcade.MOUSE_BUTTON_LEFT:
             rayon = random.uniform(10, 30)
@@ -110,7 +104,7 @@ class MyGame(arcade.Window):
             width = random.uniform(20, 50)
             height = random.uniform(20, 50)
             color = random.choice(COLORS)
-            rectangle = Rectangle(x, y, random.uniform(-5, 5), random.uniform(-5, 5), width, height, color, random.uniform(1,180))
+            rectangle = Rectangle(x, y, random.uniform(-5, 5), random.uniform(-5, 5), width, height, color, random.uniform(1, 180))
             if rectangle.change_y == 0:
                 rectangle.change_y = 1
             if rectangle.change_x == 0:
