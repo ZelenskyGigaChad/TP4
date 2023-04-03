@@ -1,15 +1,17 @@
-#Renaud Deschenes 401
-#On importe les modules nécessaires
+# Renaud Deschenes 401
+# On importe les modules nécessaires
 import arcade
 import random
 
-#On définit la taille de l`écran
+# On définit la taille de l`écran
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-#On cree une liste de couleurs
+# On cree une liste de couleurs
 COLORS = [arcade.color.BLUE, arcade.color.FANDANGO_PINK,
           arcade.color.FRENCH_ROSE, arcade.color.GOLDEN_POPPY]
-#On définit la classe Cercle avec ses attributs
+
+
+# On définit la classe Cercle avec ses attributs
 class Balle:
     def __init__(self, x, y, change_x, change_y, rayon, color):
         self.x = x
@@ -18,11 +20,12 @@ class Balle:
         self.change_y = change_y
         self.rayon = rayon
         self.color = color
-#On définit la méthode update qui permet de faire bouger les cercles
+
+# On définit la méthode update qui permet de faire bouger les cercles
     def update(self):
         self.x += self.change_x
         self.y += self.change_y
-#Si les cercles touchent les bords de l'écran, ils rebondissent inversement
+# Si les cercles touchent les bords de l'écran, ils rebondissent inversement
         if self.x < self.rayon:
             self.change_x *= -1
         elif self.x > SCREEN_WIDTH - self.rayon:
@@ -31,11 +34,13 @@ class Balle:
             self.change_y *= -1
         elif self.y > SCREEN_HEIGHT - self.rayon:
             self.change_y *= -1
-#On définit la méthode draw qui permet de dessiner les cercles
+
+# On définit la méthode draw qui permet de dessiner les cercles
     def draw(self):
         arcade.draw_circle_filled(self.x, self.y, self.rayon, self.color)
 
-#On définit la classe Rectangle avec ses attributs
+
+# On définit la classe Rectangle avec ses attributs
 class Rectangle:
     def __init__(self, x, y, change_x, change_y, width, height, color, angle):
         self.x = x
@@ -46,11 +51,12 @@ class Rectangle:
         self.height = height
         self.color = color
         self.angle = angle
-#On définit la méthode update qui permet de faire bouger les rectangles
+
+# On définit la méthode update qui permet de faire bouger les rectangles
     def update(self):
         self.x += self.change_x
         self.y += self.change_y
-#Si les rectangles touchent les bords de l'écran, ils rebondissent inversement
+# Si les rectangles touchent les bords de l'écran, ils rebondissent inversement
         if self.x < 0:
             self.change_x *= -1
         elif self.x > SCREEN_WIDTH - self.width:
@@ -59,28 +65,33 @@ class Rectangle:
             self.change_y *= -1
         elif self.y > SCREEN_HEIGHT - self.height:
             self.change_y *= -1
-#On définit la méthode draw qui permet de dessiner les rectangles
+
+# On définit la méthode draw qui permet de dessiner les rectangles
     def draw(self):
         arcade.draw_rectangle_filled(self.x, self.y, self.width, self.height, self.color, self.angle)
 
-#On définit la classe MyGame qui hérite de la classe Window
+
+# On définit la classe MyGame qui hérite de la classe Window
 class MyGame(arcade.Window):
     def __init__(self):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Never gonna give you up, never gonna let you down, never gonna run around and desert you, never gonna make you cry, never gonna say goodbye, never gonna tell a lie and hurt you")
-#On définit les listes qui contiendront les cercles et les rectangles
+# On définit les listes qui contiendront les cercles et les rectangles
         self.liste_balles = []
         self.liste_rectangles = []
-#On définit la méthode setup qui permet de creer la feneêtre et la logique du jeu
+
+# On définit la méthode setup qui permet de creer la feneêtre et la logique du jeu
     def setup(self):
         arcade.set_background_color(arcade.color.BLACK)
         arcade.schedule(self.update, 1/60)
-#On définit la méthode update qui permet de mettre à jour les cercles et les rectangles
+
+# On définit la méthode update qui permet de mettre à jour les cercles et les rectangles
     def update(self, delta_time):
         for balle in self.liste_balles:
             balle.update()
         for rectangle in self.liste_rectangles:
             rectangle.update()
-#On définit la méthode draw qui permet de dessiner les cercles et les rectangles
+
+# On définit la méthode draw qui permet de dessiner les cercles et les rectangles
     def on_draw(self):
         arcade.start_render()
         for balle in self.liste_balles:
@@ -88,8 +99,8 @@ class MyGame(arcade.Window):
         for rectangle in self.liste_rectangles:
             rectangle.draw()
 
-#On définit la méthode on_mouse_press qui permet de créer des cercles et des rectangles avec des parametres aléatoires
-#We create a particle effect when the mouse is clicked
+# On définit la méthode on_mouse_press qui permet de créer des cercles et des rectangles avec des parametres aléatoires
+# We create a particle effect when the mouse is clicked
     def on_mouse_press(self, x, y, button, modifiers):
         if button == arcade.MOUSE_BUTTON_LEFT:
             rayon = random.uniform(10, 30)
@@ -110,12 +121,14 @@ class MyGame(arcade.Window):
             if rectangle.change_x == 0:
                 rectangle.change_x = 1
             self.liste_rectangles.append(rectangle)
-#On définit la fonction main qui permet de lancer le jeu
+
+
+# On définit la fonction main qui permet de lancer le jeu
 def main():
     window = MyGame()
     window.setup()
     arcade.run()
 
 
-#On appelle la fonction main
+# On appelle la fonction main
 main()
