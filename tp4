@@ -4,8 +4,8 @@ import arcade
 import random
 
 # On définit la taille de l`écran
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 1500
+SCREEN_HEIGHT = 1000
 # On cree une liste de couleurs
 COLORS = [arcade.color.BLUE, arcade.color.FANDANGO_PINK,
           arcade.color.FRENCH_ROSE, arcade.color.GOLDEN_POPPY]
@@ -26,13 +26,13 @@ class Balle:
         self.x += self.change_x
         self.y += self.change_y
 # Si les cercles touchent les bords de l'écran, ils rebondissent inversement
-        if self.x < self.rayon:
+        if self.x + self.rayon > SCREEN_WIDTH:
             self.change_x *= -1
-        elif self.x > SCREEN_WIDTH - self.rayon:
+        if self.x - self.rayon < 0:
             self.change_x *= -1
-        if self.y < self.rayon:
+        if self.y + self.rayon > SCREEN_HEIGHT:
             self.change_y *= -1
-        elif self.y > SCREEN_HEIGHT - self.rayon:
+        if self.y - self.rayon < 0:
             self.change_y *= -1
 
 # On définit la méthode draw qui permet de dessiner les cercles
@@ -57,13 +57,13 @@ class Rectangle:
         self.x += self.change_x
         self.y += self.change_y
 # Si les rectangles touchent les bords de l'écran, ils rebondissent inversement
-        if self.x < 0:
+        if self.x + self.width/2 > SCREEN_WIDTH:
             self.change_x *= -1
-        elif self.x > SCREEN_WIDTH - self.width:
+        if self.x - self.width/2 < 0:
             self.change_x *= -1
-        if self.y < 0:
+        if self.y + self.height/2 > SCREEN_HEIGHT:
             self.change_y *= -1
-        elif self.y > SCREEN_HEIGHT - self.height:
+        if self.y - self.height/2 < 0:
             self.change_y *= -1
 
 # On définit la méthode draw qui permet de dessiner les rectangles
@@ -99,7 +99,7 @@ class MyGame(arcade.Window):
         for rectangle in self.liste_rectangles:
             rectangle.draw()
 
-# On définit la méthode on_mouse_press qui permet de créer des cercles et des rectangles avec des parametres aléatoires
+# On définit la méthode on_mouse_press qui permet de créer des cercles et des rectangles avec des parametres aléatoire
     def on_mouse_press(self, x, y, button, modifiers):
         if button == arcade.MOUSE_BUTTON_LEFT:
             rayon = random.uniform(10, 30)
