@@ -4,8 +4,8 @@ import arcade
 import random
 
 # On définit la taille de l`écran
-SCREEN_WIDTH = 1500
-SCREEN_HEIGHT = 1000
+SCREEN_WIDTH = 750
+SCREEN_HEIGHT = 500
 # On cree une liste de couleurs
 COLORS = [arcade.color.BLUE, arcade.color.FANDANGO_PINK,
           arcade.color.FRENCH_ROSE, arcade.color.GOLDEN_POPPY]
